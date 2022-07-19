@@ -8,7 +8,7 @@ public interface UserService {
 	
 	User getUser(User user);
 	
-	boolean updateUserNickname(User user);
+	boolean updateUser(User user);
 	
 	boolean deleteUser(User user);
 }

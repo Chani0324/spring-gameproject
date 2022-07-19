@@ -50,13 +50,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Transactional
-	public boolean updateUserNickname(User user) {
+	public boolean updateUser(User user) {
 
 		boolean result = false;
 
 		if (getUser(user) != null) {
 			User findUser = userRepo.findById(user.getId()).get();
 			findUser.setNickname(user.getNickname());
+			findUser.setName(user.getName());
+			findUser.setPw(user.getPw());
+			findUser.setMail(user.getMail());
 			userRepo.save(findUser);
 			result = true;
 		}

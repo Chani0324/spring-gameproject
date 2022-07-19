@@ -78,13 +78,13 @@ public class UserController {
 		}
 	}
 	
-	@PutMapping("/updateUserNickname") 
-	public void updateUserNickname(@ModelAttribute("User") User user) {
+	@PutMapping("/updateUser") 
+	public void updateUser(@ModelAttribute("User") User user) {
 		
 		if (user.getId() == null) {
 			System.out.println("로그인 필요");
 		} 
-		boolean result = userService.updateUserNickname(user);
+		boolean result = userService.updateUser(user);
 		
 		if (result) {
 			System.out.println("업데이트 완료");
@@ -92,6 +92,5 @@ public class UserController {
 			System.out.println("해당 유저의 id 재확인 바람.");
 		}
 	}
-	
-	
+
 }
