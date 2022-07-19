@@ -1,5 +1,9 @@
 package kr.io.classicgame.service;
 
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +16,25 @@ public class Cgame3ServiceImpl implements Cgame3Service{
 	@Autowired
 	private Cgame3Repository cgame3Repo;
 	
-	public void insertCgame3(Cgame3 cgame3) {
-		cgame3Repo.save(cgame3);
+	public Optional<Cgame3> getNickname(Cgame3 cgame3) {
+		Optional<Cgame3> findNickname = cgame3Repo.findByNickname(cgame3.getNickname());
+		
+		if(findNickname.isPresent()) {
+			return findNickname;
+		} else {
+			return null;
+		}
+	}
+	
+	@Transactional
+	public boolean insertCgame3(Cgame3 cgame3) {
+
+		boolean result = false;
+
+		if(cgame3.getNickname() != null) {
+			cgame3Repo.save(cgame3);
+			result = true;
+		}
+		return result;
 	}
 }

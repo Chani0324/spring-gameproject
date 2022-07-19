@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -18,6 +20,11 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@ModelAttribute("User")
+	public User setUser() {
+		return new User();
+	}
 	
 	/* pw저장 시에는 비밀번호 그대로 말고 바꿔서 저장하는 기능 넣어야 할듯. */
 	/* parameter에 Requestbody 넣으면 인식을 json으로 하기 때문에 html에서 controller에 전달 해줄 때 json으로 변경해야함.
@@ -55,4 +62,35 @@ public class UserController {
 		System.out.println("로그아웃 완료");
 	}
 	
+	@DeleteMapping("/deleteUser")
+	public void deleteUser(User user) {
+		
+		if (user.getId() == null) {
+			System.out.println("로그인 필요");
+		}
+		
+		boolean result = userService.deleteUser(user);
+		
+		if(result) {
+			System.out.println("삭제 완료");
+		}else {
+			System.out.println("해당 아이디 없음.");
+		}
+	}
+	
+	@PutMapping("/updateUser") 
+	public void updateUser(@ModelAttribute("User") User user) {
+		
+		if (user.getId() == null) {
+			System.out.println("로그인 필요");
+		} 
+		boolean result = userService.updateUser(user);
+		
+		if (result) {
+			System.out.println("업데이트 완료");
+		} else {
+			System.out.println("해당 유저의 id 재확인 바람.");
+		}
+	}
+
 }
