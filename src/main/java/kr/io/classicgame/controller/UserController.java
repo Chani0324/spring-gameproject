@@ -63,13 +63,13 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/deleteUser")
-	public void deleteUser(User user) {
+	public void deleteUser(@ModelAttribute("User") User sessionUser) {
 		
-		if (user.getId() == null) {
+		if (sessionUser.getId() == null) {
 			System.out.println("로그인 필요");
 		}
 		
-		boolean result = userService.deleteUser(user);
+		boolean result = userService.deleteUser(sessionUser);
 		
 		if(result) {
 			System.out.println("삭제 완료");
@@ -79,9 +79,9 @@ public class UserController {
 	}
 	
 	@PutMapping("/updateUser") 
-	public void updateUser(@ModelAttribute("User") User user) {
+	public void updateUser(@ModelAttribute("User") User sessionUser, User user) {
 		
-		if (user.getId() == null) {
+		if (sessionUser.getId() == null) {
 			System.out.println("로그인 필요");
 		} 
 		boolean result = userService.updateUser(user);
