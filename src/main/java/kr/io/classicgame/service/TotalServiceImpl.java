@@ -1,10 +1,13 @@
 package kr.io.classicgame.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.io.classicgame.dao.TotalRepository;
 import kr.io.classicgame.domain.Total;
+import kr.io.classicgame.domain.User;
 
 @Service
 public class TotalServiceImpl implements TotalService{
@@ -12,6 +15,7 @@ public class TotalServiceImpl implements TotalService{
 	@Autowired
 	private TotalRepository totalRepo;
 
+	@Transactional
 	public void updateTotal(Total total) {
 		// get으로 가져온 값이 null인 경우 @ExceptionHandler를 통해 NoSuchElementException 처리 필요.
 		Total findTotal = totalRepo.findById(total.getNickname()).get();
@@ -25,4 +29,10 @@ public class TotalServiceImpl implements TotalService{
 		}
 		totalRepo.save(findTotal);
 	}
+	
+	public Total getUserTotal(User user) {
+		return totalRepo.findById(user.getNickname()).get();
+	}
+	
+	
 }
