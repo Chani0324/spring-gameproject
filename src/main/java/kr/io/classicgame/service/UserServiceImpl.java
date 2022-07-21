@@ -1,5 +1,7 @@
 package kr.io.classicgame.service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -24,6 +26,28 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
+	
+	public List<User> getMail(User user) {
+		List<User> findUser = userRepo.findAllByMail(user.getMail());
+		if (findUser != null) {
+			return findUser;
+		} else {
+			return Collections.<User>emptyList();
+		}
+	}
+	
+	public List<User> getNickname(User user) {
+		List<User> findUser = userRepo.findAllByNickname(user.getNickname());
+		if (findUser != null) {
+			return findUser;
+		} else {
+			return Collections.<User>emptyList();
+		}
+	}
+	
+	
+	
+	
 	
 	@Transactional
 	public boolean insertUser(User user) {

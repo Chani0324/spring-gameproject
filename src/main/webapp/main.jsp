@@ -25,14 +25,16 @@
 
 		<div class="menu">
 
-			<c:if test="${empty sessionScope.user || sessionScope.user.id eq null}">
+			<c:if
+				test="${empty sessionScope.user || sessionScope.user.id eq null}">
 				<a href="login.jsp">로그인</a>
 				<a href="signUp.jsp">회원가입</a>
 			</c:if>
 
-			<c:if test="${not empty sessionScope.user && sessionScope.user.id ne null}">
+			<c:if
+				test="${not empty sessionScope.user && sessionScope.user.id ne null}">
 				<a href="#" id="myInfo">내정보</a>
-				<a href="main.jsp" onclick="logOut()">로그아웃</a>
+				<a href="logout">로그아웃</a>
 			</c:if>
 		</div>
 	</div>
@@ -41,52 +43,54 @@
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		<ul>
 			<li>${sessionScope.user.nickname}</li>
-
 			<li id="score"></li>
 		</ul>
-		<a href="/main/userupdate/userUpdate.html"> 정보변경하기 </a>
+		 <a href="userUpdate.jsp"> 정보변경하기 </a>
+		 <a href="" id="userDelete" onclick="confirmDelete()"> 계정삭제하기 </a>
 	</div>
-	
+
 	<br>
 	<br>
 
 	<ul class="game-list">
-	  <c:if test="${empty sessionScope.user || sessionScope.user.id eq null}">
-		<li><a href="" onclick="showAlert()"> <img
-				src="https://trees.gamemeca.com/wp-content/uploads/2018/03/tree_paleblue_tetris2-120x120.png"
-				alt="Tetris">
-		</a>
-			<p>Tetris</p></li>
-		<li><a href="" onclick="showAlert()"> <img
-				src="https://yjyoon-dev.github.io/assets/post_images/js_game/ex_snake.png"
-				alt="Snake" height="100px">
-		</a>
-			<p>Snake</p></li>
-		<li><a href="" onclick="showAlert()"> <img
-				src="https://yjyoon-dev.github.io/assets/post_images/js_game/ex_2048.png"
-				alt="2048" height="100px">
-				<p>2048</p>
-		</a></li>
-	  </c:if>
-		
-	  <c:if test="${not empty sessionScope.user && sessionScope.user.id ne null}">
-		<li><a href="tetris/tetris.jsp"> <img
-				src="https://trees.gamemeca.com/wp-content/uploads/2018/03/tree_paleblue_tetris2-120x120.png"
-				alt="Tetris">
-		</a>
-			<p>Tetris</p></li>
-		<li><a href="snake/snake.jsp"> <img
-				src="https://yjyoon-dev.github.io/assets/post_images/js_game/ex_snake.png"
-				alt="Snake" height="100px">
-		</a>
-			<p>Snake</p></li>
-		<li><a href="2048/2048.jsp"> <img
-				src="https://yjyoon-dev.github.io/assets/post_images/js_game/ex_2048.png"
-				alt="2048" height="100px">
-				<p>2048</p>
-		</a></li>
-	  </c:if>
-		
+		<c:if
+			test="${empty sessionScope.user || sessionScope.user.id eq null}">
+			<li><a href="" onclick="showAlert()"> <img
+					src="https://trees.gamemeca.com/wp-content/uploads/2018/03/tree_paleblue_tetris2-120x120.png"
+					alt="Tetris">
+			</a>
+				<p>Tetris</p></li>
+			<li><a href="" onclick="showAlert()"> <img
+					src="https://yjyoon-dev.github.io/assets/post_images/js_game/ex_snake.png"
+					alt="Snake" height="100px">
+			</a>
+				<p>Snake</p></li>
+			<li><a href="" onclick="showAlert()"> <img
+					src="https://yjyoon-dev.github.io/assets/post_images/js_game/ex_2048.png"
+					alt="2048" height="100px">
+					<p>2048</p>
+			</a></li>
+		</c:if>
+
+		<c:if
+			test="${not empty sessionScope.user && sessionScope.user.id ne null}">
+			<li><a href="tetris/tetris.jsp"> <img
+					src="https://trees.gamemeca.com/wp-content/uploads/2018/03/tree_paleblue_tetris2-120x120.png"
+					alt="Tetris">
+			</a>
+				<p>Tetris</p></li>
+			<li><a href="snake/snake.jsp"> <img
+					src="https://yjyoon-dev.github.io/assets/post_images/js_game/ex_snake.png"
+					alt="Snake" height="100px">
+			</a>
+				<p>Snake</p></li>
+			<li><a href="2048/2048.jsp"> <img
+					src="https://yjyoon-dev.github.io/assets/post_images/js_game/ex_2048.png"
+					alt="2048" height="100px">
+					<p>2048</p>
+			</a></li>
+		</c:if>
+
 		<li><a href=""> <img
 				src="https://xotgame.com/static/upload/games/20210731/2d305d28f63c8f2913fc24a653b850e2.png"
 				alt="Among Us!">
@@ -148,8 +152,8 @@
 				<p>Mob Control</p>
 		</a></li>
 	</ul>
-	
-		<script>
+
+	<script>
 		
 		if (document.getElementById("myInfo")) {
 			document.getElementById("myInfo").addEventListener("click", openNav);
@@ -182,21 +186,31 @@
 			document.getElementById("mySidenav").style.borderStyle = "none";
 		}
 		
-        function logOut() {
-			const xhttp = new XMLHttpRequest();
-			
-			xhttp.open("GET", "logout", true);
-			xhttp.setRequestHeader("Content-type",
-					"application/x-www-form-urlencoded;charset=UTF-8");
-			xhttp.send();
-            alert("로그아웃 되었습니다.")
-        }
-        
+		function confirmDelete() {
+			if(window.confirm("정말 삭제하시겠습니까?")) {
+				document.getElementById("userDelete").setAttribute("href", "deleteUser");
+			}else {
+				document.getElementById("userDelete").setAttribute("href", "#");
+			}
+		}
+		
         function showAlert() {
         	alert("로그인 후 이용해 주세요");
         }
         
 	</script>
+	<c:if test="${not empty message}">
+		<script type="text/javascript">
+			
+			 let msg = "<c:out value='${message}'/>";
+			 (() => {
+				 if (msg != "") {
+				 	alert(msg);
+				 }
+			 })();
+		</script>
+	</c:if>
+
 </body>
 
 </html>
