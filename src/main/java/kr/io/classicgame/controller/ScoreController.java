@@ -13,6 +13,7 @@ import kr.io.classicgame.domain.Cgame2;
 import kr.io.classicgame.domain.Cgame3;
 import kr.io.classicgame.domain.Total;
 import kr.io.classicgame.domain.User;
+import kr.io.classicgame.exception.UserException;
 import kr.io.classicgame.service.Cgame1Service;
 import kr.io.classicgame.service.Cgame2Service;
 import kr.io.classicgame.service.Cgame3Service;
@@ -95,10 +96,17 @@ public class ScoreController {
 		return "redirect:/main.jsp";
 	}
 	
-	
-	public void findUserTotal(User user, Model model) {
+	@GetMapping("/userTotal")
+	public String findUserTotal(@ModelAttribute("user") User sessionUser, Model model) {
 		
-		model.addAttribute("userTotal", totalService.getUserTotal(user));
+		if (sessionUser.getId() == null) {
+			return "redirect:/login.html";
+		}
+		
+		Total userTotal = totalService.getUserTotal(sessionUser);
+		
+		model.addAttribute("userTotal", userTotal);
+		return "forward:userTotalView.jsp";
 		
 	}
 

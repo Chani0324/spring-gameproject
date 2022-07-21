@@ -31,7 +31,7 @@
 			</c:if>
 
 			<c:if test="${not empty sessionScope.user && sessionScope.user.id ne null}">
-				<a href="#" onclick="openNav()">내정보</a>
+				<a href="#" id="myInfo">내정보</a>
 				<a href="main.jsp" onclick="logOut()">로그아웃</a>
 			</c:if>
 		</div>
@@ -42,41 +42,11 @@
 		<ul>
 			<li>${sessionScope.user.nickname}</li>
 
-			<li>테트리스 점수 : ${userTotal.score1}</li>
-			<li>스네이크 점수 : ${userTotal.score2}</li>
-			<li>2048 : ${userTotal.score3}</li>
+			<li id="score"></li>
 		</ul>
 		<a href="/main/userupdate/userUpdate.html"> 정보변경하기 </a>
 	</div>
 	
-	<script>
-		function openNav() {
-			document.getElementById("mySidenav").style.width = "300px";
-			document.getElementById("mySidenav").style.borderColor = "#f98f4d";
-			document.getElementById("mySidenav").style.borderStyle = "solid";
-		}
-
-		function closeNav() {
-			document.getElementById("mySidenav").style.width = "0";
-			document.getElementById("mySidenav").style.borderStyle = "none";
-		}
-		
-        function logOut() {
-			const xhttp = new XMLHttpRequest();
-			
-			xhttp.open("GET", "logout", true);
-			xhttp.setRequestHeader("Content-type",
-					"application/x-www-form-urlencoded;charset=UTF-8");
-			xhttp.send();
-            alert("로그아웃 되었습니다.")
-        }
-        
-        function showAlert() {
-        	alert("로그인 후 이용해 주세요");
-        }
-        
-	</script>
-
 	<br>
 	<br>
 
@@ -178,6 +148,55 @@
 				<p>Mob Control</p>
 		</a></li>
 	</ul>
+	
+		<script>
+		
+		if (document.getElementById("myInfo")) {
+			document.getElementById("myInfo").addEventListener("click", openNav);
+	
+			document.getElementById("myInfo").addEventListener("click", function() {
+				let getId = document.getElementById("id");
+				
+				const xhttp = new XMLHttpRequest();
+				
+				xhttp.onload = function() {
+	 				document.getElementById("score").innerHTML = this.responseText;
+					}
+				
+				xhttp.open("GET", "userTotal", true);
+				xhttp.setRequestHeader("Content-type",
+						"application/x-www-form-urlencoded;charset=UTF-8");
+				xhttp.send();
+				}, {once:true});
+		}
+		
+	
+		function openNav() {
+			document.getElementById("mySidenav").style.width = "300px";
+			document.getElementById("mySidenav").style.borderColor = "#f98f4d";
+			document.getElementById("mySidenav").style.borderStyle = "solid";
+		}
+
+		function closeNav() {
+			document.getElementById("mySidenav").style.width = "0";
+			document.getElementById("mySidenav").style.borderStyle = "none";
+		}
+		
+        function logOut() {
+			const xhttp = new XMLHttpRequest();
+			
+			xhttp.open("GET", "logout", true);
+			xhttp.setRequestHeader("Content-type",
+					"application/x-www-form-urlencoded;charset=UTF-8");
+			xhttp.send();
+            alert("로그아웃 되었습니다.")
+        }
+        
+        function showAlert() {
+        	alert("로그인 후 이용해 주세요");
+        }
+        
+	</script>
 </body>
 
 </html>
