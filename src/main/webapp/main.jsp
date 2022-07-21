@@ -26,8 +26,8 @@
 		<div class="menu">
 
 			<c:if test="${empty sessionScope.user || sessionScope.user.id eq null}">
-				<a href="login.html">로그인</a>
-				<a href="signUp.html">회원가입</a>
+				<a href="login.jsp">로그인</a>
+				<a href="signUp.jsp">회원가입</a>
 			</c:if>
 
 			<c:if test="${not empty sessionScope.user && sessionScope.user.id ne null}">
@@ -70,12 +70,36 @@
 			xhttp.send();
             alert("로그아웃 되었습니다.")
         }
+        
+        function showAlert() {
+        	alert("로그인 후 이용해 주세요");
+        }
+        
 	</script>
 
 	<br>
 	<br>
 
 	<ul class="game-list">
+	  <c:if test="${empty sessionScope.user || sessionScope.user.id eq null}">
+		<li><a href="" onclick="showAlert()"> <img
+				src="https://trees.gamemeca.com/wp-content/uploads/2018/03/tree_paleblue_tetris2-120x120.png"
+				alt="Tetris">
+		</a>
+			<p>Tetris</p></li>
+		<li><a href="" onclick="showAlert()"> <img
+				src="https://yjyoon-dev.github.io/assets/post_images/js_game/ex_snake.png"
+				alt="Snake" height="100px">
+		</a>
+			<p>Snake</p></li>
+		<li><a href="" onclick="showAlert()"> <img
+				src="https://yjyoon-dev.github.io/assets/post_images/js_game/ex_2048.png"
+				alt="2048" height="100px">
+				<p>2048</p>
+		</a></li>
+	  </c:if>
+		
+	  <c:if test="${not empty sessionScope.user && sessionScope.user.id ne null}">
 		<li><a href="tetris/tetris.jsp"> <img
 				src="https://trees.gamemeca.com/wp-content/uploads/2018/03/tree_paleblue_tetris2-120x120.png"
 				alt="Tetris">
@@ -91,6 +115,8 @@
 				alt="2048" height="100px">
 				<p>2048</p>
 		</a></li>
+	  </c:if>
+		
 		<li><a href=""> <img
 				src="https://xotgame.com/static/upload/games/20210731/2d305d28f63c8f2913fc24a653b850e2.png"
 				alt="Among Us!">
