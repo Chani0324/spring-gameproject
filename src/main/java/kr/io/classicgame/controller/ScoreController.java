@@ -1,10 +1,11 @@
 package kr.io.classicgame.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kr.io.classicgame.domain.Cgame1;
@@ -17,8 +18,8 @@ import kr.io.classicgame.service.Cgame2Service;
 import kr.io.classicgame.service.Cgame3Service;
 import kr.io.classicgame.service.TotalService;
 
-@SessionAttributes("User")
-@RestController
+@SessionAttributes("user")
+@Controller
 public class ScoreController {
 
 	@Autowired
@@ -33,17 +34,17 @@ public class ScoreController {
 	@Autowired
 	private Cgame3Service cgame3Service;
 
-	@ModelAttribute("User")
+	@ModelAttribute("user")
 	public User setUser() {
 		return new User();
 	}
 
 	@PostMapping("/insertCgame1")
-	public void insertCgame1(@ModelAttribute("User") User sessionUser, Model model, Cgame1 cgame1, Total total) {
+	public String insertCgame1(@ModelAttribute("user") User sessionUser, Model model, Cgame1 cgame1, Total total) {
 
+		// AOP 적용 예정
 		if (sessionUser.getId() == null) {
-			System.out.println("로그인 인증 만료 재로그인 필요.");
-			return;
+			return "redirect:/login.html";
 		}
 
 		if (total.getScore2() == 0 && total.getScore3() == 0) {
@@ -52,21 +53,17 @@ public class ScoreController {
 
 			if (result) {
 				totalService.updateTotal(total);
-				System.out.println("저장 완료");
-			} else {
-				System.out.println("저장 실패");
 			}
-		} else {
-			System.out.println("요청받은 game의 점수가 아닙니다.");
 		}
+		return "redirect:/main.jsp";
 	}
 
 	@PostMapping("/insertCgame2")
-	public void insertCgame2(@ModelAttribute("User") User sessionUser, Model model, Cgame2 cgame2, Total total) {
+	public String insertCgame2(@ModelAttribute("user") User sessionUser, Model model, Cgame2 cgame2, Total total) {
 
+		// AOP 적용 예정
 		if (sessionUser.getId() == null) {
-			System.out.println("로그인 인증 만료 재로그인 필요.");
-			return;
+			return "redirect:/login.html";
 		}
 
 		if (total.getScore1() == 0 && total.getScore3() == 0) {
@@ -75,21 +72,16 @@ public class ScoreController {
 
 			if (result) {
 				totalService.updateTotal(total);
-				System.out.println("저장 완료");
-			} else {
-				System.out.println("저장 실패");
 			}
-		} else {
-			System.out.println("요청받은 game의 점수가 아닙니다.");
 		}
+		return "redirect:/main.jsp";
 	}
 
 	@PostMapping("/insertCgame3")
-	public void insertCgame3(@ModelAttribute("User") User sessionUser, Model model, Cgame3 cgame3, Total total) {
+	public String insertCgame3(@ModelAttribute("user") User sessionUser, Model model, Cgame3 cgame3, Total total) {
 
 		if (sessionUser.getId() == null) {
-			System.out.println("로그인 인증 만료 재로그인 필요.");
-			return;
+			return "redirect:/login.html";
 		}
 
 		if (total.getScore1() == 0 && total.getScore2() == 0) {
@@ -98,13 +90,16 @@ public class ScoreController {
 
 			if (result) {
 				totalService.updateTotal(total);
-				System.out.println("저장 완료");
-			} else {
-				System.out.println("저장 실패");
 			}
-		} else {
-			System.out.println("요청받은 game의 점수가 아닙니다.");
 		}
+		return "redirect:/main.jsp";
+	}
+	
+	
+	public void findUserTotal(User user, Model model) {
+		
+		model.addAttribute("userTotal", totalService.getUserTotal(user));
+		
 	}
 
 }
