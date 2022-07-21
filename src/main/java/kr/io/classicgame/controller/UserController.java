@@ -35,15 +35,16 @@ public class UserController {
 	/* parameter에 Requestbody 넣으면 인식을 json으로 하기 때문에 html에서 controller에 전달 해줄 때 json으로 변경해야함.
 	 * 보통 html에서 post나 put방식으로 보낼 때 따로 설정이 없으면 content-type은 application/x-www-form-urlencoded으로 되어있다.
 	 * json으로 controller에 넘겨주려면 html에서 content-type을 application/json으로 설정 해야함. */
-//	@RequestMapping(value="/signup", method=RequestMethod.POST)
 	@PostMapping("/signup")
-	public String signUpUser(User user) {
+	public String signUpUser(User user, Model model) {
 		boolean result = userService.insertUser(user);
 		
 		if(result) {
-			return "redirect:login.html";
+			model.addAttribute("message", "회원가입 완료. 로그인을 진행해 주세요.");
+			return "forward:login.jsp";
 		}else {
-			return "redirect:signUp.html";
+			model.addAttribute("message", "회원가입 실패. 다시 정보를 입력해 주세요.");
+			return "forward:signUp.jsp";
 		}
 	}
 
@@ -58,7 +59,8 @@ public class UserController {
 			model.addAttribute("user", findUser);
 			return "forward:main.jsp";
 		} else {
-			return "redirect:login.html";
+			model.addAttribute("message", "로그인 실패. 아이디 비밀번호 확인 필요");
+			return "forward:login.jsp";
 		}
 	}
 	
@@ -73,7 +75,7 @@ public class UserController {
 		if(findUser == null && user.getId().length() != 0) {
 			model.addAttribute("message", "사용 가능한 id 입니다.");
 		}else if(user.getId().length() == 0) {
-			model.addAttribute("message", "id를 입력해 주세요");
+			model.addAttribute("message", "");
 		}else {
 			model.addAttribute("message", "중복된 id입니다.");
 		}
