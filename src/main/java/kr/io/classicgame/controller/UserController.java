@@ -23,9 +23,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private ScoreController	scoreController;
-	
 	@ModelAttribute("user")
 	public User setUser() {
 		return new User();
@@ -55,7 +52,6 @@ public class UserController {
 		
 		/* pw검증 뒤에서 할건지 앞에서 할건지 */
 		if (findUser != null && findUser.getPw().equals(user.getPw())) {
-			scoreController.findUserTotal(findUser, model);
 			model.addAttribute("user", findUser);
 			return "forward:main.jsp";
 		} else {
