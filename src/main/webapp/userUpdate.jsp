@@ -2,6 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%    
+response.setHeader("Cache-Control","no-store");    
+response.setHeader("Pragma","no-cache");    
+response.setDateHeader("Expires",0);    
+if (request.getProtocol().equals("HTTP/1.1"))  
+        response.setHeader("Cache-Control", "no-cache");  
+%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -72,6 +79,18 @@
 			xhttp.send("nickname=" + getNick.value);
 			});
 	</script>
+	
+	<c:if test="${not empty message}">
+		<script type="text/javascript">
+			
+			 let msg = "<c:out value='${message}'/>";
+			 (() => {   
+				 if (msg != "") {
+				 	alert(msg);
+				 }
+			 })();
+		</script>
+	</c:if>
 
 </body>
 </html>
