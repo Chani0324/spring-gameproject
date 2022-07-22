@@ -2,6 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%    
+response.setHeader("Cache-Control","no-store");    
+response.setHeader("Pragma","no-cache");    
+response.setDateHeader("Expires",0);    
+if (request.getProtocol().equals("HTTP/1.1"))  
+        response.setHeader("Cache-Control", "no-cache");  
+%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -34,7 +41,7 @@
 			<c:if
 				test="${not empty sessionScope.user && sessionScope.user.id ne null}">
 				<a href="#" id="myInfo">내정보</a>
-				<a href="logout">로그아웃</a>
+				<a href="main.jsp" onclick="logOut()">로그아웃</a>
 			</c:if>
 		</div>
 	</div>
@@ -174,6 +181,18 @@
 				}, {once:true});
 		}
 		
+		
+		function logOut() {
+			const xhttp = new XMLHttpRequest();
+			
+			xhttp.open("GET", "logout", true);
+			xhttp.setRequestHeader("Content-type",
+					"application/x-www-form-urlencoded;charset=UTF-8");
+			xhttp.send();
+			alert("로그아웃 완료.");
+		}
+		
+		
 	
 		function openNav() {
 			document.getElementById("mySidenav").style.width = "300px";
@@ -188,7 +207,16 @@
 		
 		function confirmDelete() {
 			if(window.confirm("정말 삭제하시겠습니까?")) {
-				document.getElementById("userDelete").setAttribute("href", "deleteUser");
+				
+				const xhttp = new XMLHttpRequest();
+				
+				xhttp.open("GET", "deleteUser", true);
+				xhttp.setRequestHeader("Content-type",
+						"application/x-www-form-urlencoded;charset=UTF-8");
+				xhttp.send();
+				alert("계정 탈퇴 완료.");
+				
+				document.getElementById("userDelete").setAttribute("href", "main.jsp");
 			}else {
 				document.getElementById("userDelete").setAttribute("href", "#");
 			}
@@ -199,6 +227,7 @@
         }
         
 	</script>
+	
 	<c:if test="${not empty message}">
 		<script type="text/javascript">
 			

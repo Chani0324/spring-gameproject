@@ -6,8 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import kr.io.classicgame.domain.Cgame1;
 import kr.io.classicgame.domain.Cgame2;
 import kr.io.classicgame.domain.Cgame3;
@@ -40,6 +44,12 @@ public class ScoreController {
 		return new User();
 	}
 
+	@ApiOperation(value = "테트리스 게임 점수 삽입", notes = "API 설명 부분 : 점수 값을 cgame1 테이블에 삽입하면서 total 테이블의 점수보다 새 점수값이 크다면 갱신해줌.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK !!"),
+            @ApiResponse(code = 500, message = "500 에러 발생시 출력 메세지, 가령 Internal Server Error !"),
+            @ApiResponse(code = 404, message = "404 에러 발생시 출력 메세지, Not Found !")
+    })
 	@PostMapping("/insertCgame1")
 	public String insertCgame1(@ModelAttribute("user") User sessionUser, Model model, Cgame1 cgame1, Total total) {
 
@@ -59,6 +69,12 @@ public class ScoreController {
 		return "redirect:/main.jsp";
 	}
 
+	@ApiOperation(value = "뱀꼬리 게임 점수 삽입", notes = "API 설명 부분 : 점수 값을 cgame2 테이블에 삽입하면서 total 테이블의 점수보다 새 점수값이 크다면 갱신해줌.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK !!"),
+            @ApiResponse(code = 500, message = "500 에러 발생시 출력 메세지, 가령 Internal Server Error !"),
+            @ApiResponse(code = 404, message = "404 에러 발생시 출력 메세지, Not Found !")
+    })
 	@PostMapping("/insertCgame2")
 	public String insertCgame2(@ModelAttribute("user") User sessionUser, Model model, Cgame2 cgame2, Total total) {
 
@@ -78,6 +94,12 @@ public class ScoreController {
 		return "redirect:/main.jsp";
 	}
 
+	@ApiOperation(value = "2048 게임 점수 삽입", notes = "API 설명 부분 : 점수 값을 cgame3 테이블에 삽입하면서 total 테이블의 점수보다 새 점수값이 크다면 갱신해줌.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK !!"),
+            @ApiResponse(code = 500, message = "500 에러 발생시 출력 메세지, 가령 Internal Server Error !"),
+            @ApiResponse(code = 404, message = "404 에러 발생시 출력 메세지, Not Found !")
+    })
 	@PostMapping("/insertCgame3")
 	public String insertCgame3(@ModelAttribute("user") User sessionUser, Model model, Cgame3 cgame3, Total total) {
 
@@ -96,6 +118,12 @@ public class ScoreController {
 		return "redirect:/main.jsp";
 	}
 	
+	@ApiOperation(value = "total 테이블 값 갱신", notes = "API 설명 부분 : 내 정보 버튼을 누르면 현재 total 테이블의 값을 가져옴")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK !!"),
+            @ApiResponse(code = 500, message = "500 에러 발생시 출력 메세지, 가령 Internal Server Error !"),
+            @ApiResponse(code = 404, message = "404 에러 발생시 출력 메세지, Not Found !")
+    })
 	@GetMapping("/userTotal")
 	public String findUserTotal(@ModelAttribute("user") User sessionUser, Model model) {
 		

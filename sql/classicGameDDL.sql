@@ -3,9 +3,9 @@ DROP TABLE IF EXISTS User;
 CREATE TABLE User(
 id VARCHAR(40) primary key,  
 pw VARCHAR(40),
-mail VARCHAR(40),
+mail VARCHAR(40) UNIQUE,
 name VARCHAR(40),
-nickname VARCHAR(40)
+nickname VARCHAR(40) UNIQUE
 );
 
 ​
