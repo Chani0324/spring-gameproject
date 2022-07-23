@@ -98,62 +98,62 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			</a></li>
 		</c:if>
 
-		<li><a href=""> <img
+		<li><a href="main.jsp"> <img
 				src="https://xotgame.com/static/upload/games/20210731/2d305d28f63c8f2913fc24a653b850e2.png"
 				alt="Among Us!">
 				<p>Among Us</p>
 		</a></li>
-		<li><a href=""> <img
+		<li><a href="main.jsp"> <img
 				src="https://xotgame.com/static/upload/games/20210802/5d5d9831cdc2cdb95cafb3764b7b9575.png"
 				alt="Geometry Dash">
 				<p>Geometry Dash</p>
 		</a></li>
-		<li><a href=""> <img
+		<li><a href="main.jsp"> <img
 				src="https://xotgame.com/static/upload/games/20220416/2b4ff60a5f758f0a848a7237317b0b04.png"
 				alt="slither.io">
 				<p>slither.io</p>
 		</a></li>
-		<li><a href=""> <img
+		<li><a href="main.jsp"> <img
 				src="https://xotgame.com//static/upload/games/20220416/47e950c533e314caaaa8f040937d720c.png"
 				alt="Subway Surfers">
 				<p>Subway Surfers</p>
 		</a></li>
-		<li><a href=""> <img
+		<li><a href="main.jsp"> <img
 				src="https://xotgame.com/static/upload/games/20210824/6ba8794db158ffe2ab9207cc334bceed.png"
 				alt="Clash of Clans">
 				<p>Clash of Clans</p>
 		</a></li>
-		<li><a href=""> <img
+		<li><a href="main.jsp"> <img
 				src="https://xotgame.com/static/upload/games/20210802/45dc196cb8def7f1a02008466ccb831a.png"
 				alt="Minecreaft">
 				<p>Minecreaft</p>
 		</a></li>
-		<li><a href=""> <img
+		<li><a href="main.jsp"> <img
 				src="https://xotgame.com/static/upload/games/20220416/9b1c2f100547330b731a34ac68498d3c.png"
 				alt="Call of Duty">
 				<p>Call of Duty</p>
 		</a></li>
-		<li><a href=""> <img
+		<li><a href="main.jsp"> <img
 				src="https://xotgame.com/static/upload/games/20220416/a69f683ba09950e71437b33c89c251b7.png"
 				alt="Minion Rush">
 				<p>Minion Rush</p>
 		</a></li>
-		<li><a href=""> <img
+		<li><a href="main.jsp"> <img
 				src="https://xotgame.com/static/upload/games/20210802/feabe10a22ecd92d30ac7998b525dc5f.jpg"
 				alt="Clash Royale">
 				<p>Clash Royale</p>
 		</a></li>
-		<li><a href=""> <img
+		<li><a href="main.jsp"> <img
 				src="https://xotgame.com/static/upload/games/20211011/21ac777aea834b0fadb743eb0f44832e.png"
 				alt="Cookie Run: Kingdom">
 				<p>Cookie Run: Kingdom</p>
 		</a></li>
-		<li><a href=""> <img
+		<li><a href="main.jsp"> <img
 				src="https://xotgame.com/static/upload/games/20211012/8457aeb8b4464636ef698a52032bef12.png"
 				alt="Pokémon UNITE">
 				<p>Pokémon UNITE</p>
 		</a></li>
-		<li><a href=""> <img
+		<li><a href="main.jsp"> <img
 				src="https://xotgame.com/static/upload/games/20210802/02edb6fcd1f965cea255ac91cf55e2ca.png"
 				alt="Mob Control">
 				<p>Mob Control</p>
