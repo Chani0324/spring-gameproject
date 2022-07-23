@@ -51,8 +51,12 @@ public class UserServiceImpl implements UserService {
 	public boolean insertUser(User user) {
 		// null인 경우 @ExceptionHandler를 통해 예외처리 필요. 닉네임, mail도 검증 필요.
 		boolean result = false;
+		Optional<User> findUser = userRepo.findById(user.getId());
+		List<User> findMail = userRepo.findAllByMail(user.getMail());
+		List<User> findNickname = userRepo.findAllByNickname(user.getNickname());
 
-		if (getUser(user) == null) {
+		if (findUser.isEmpty() && findMail.size() == 0 && findNickname.size() == 0) {
+
 			userRepo.save(user);
 			result = true;
 		}
@@ -79,6 +83,47 @@ public class UserServiceImpl implements UserService {
 		User findUser = userRepo.findById(user.getId()).get();
 		List<User> findMail = userRepo.findAllByMail(user.getMail());
 		List<User> findNickname = userRepo.findAllByNickname(user.getNickname());
+		
+//		System.out.println(findUser);
+//		System.out.println(findMail.get(0));
+//		System.out.println(findNickname);
+//
+//		if (findMail.size() != 0 || findNickname.size() != 0) {
+//			if (findUser.getMail().equals(findMail.get(0).getMail())
+//					&& findUser.getNickname().equals(findNickname.get(0).getNickname())) {
+//				findUser.setNickname(user.getNickname());
+//				findUser.setName(user.getName());
+//				findUser.setPw(user.getPw());
+//				findUser.setMail(user.getMail());
+//
+//				userRepo.save(findUser);
+//				result = true;
+//			} else if (findUser.getMail().equals(findMail.get(0).getMail()) && findNickname.size() == 0) {
+//				findUser.setNickname(user.getNickname());
+//				findUser.setName(user.getName());
+//				findUser.setPw(user.getPw());
+//				findUser.setMail(user.getMail());
+//
+//				userRepo.save(findUser);
+//				result = true;
+//			} else if (findUser.getNickname().equals(findNickname.get(0).getNickname()) && findMail.size() == 0) {
+//				findUser.setNickname(user.getNickname());
+//				findUser.setName(user.getName());
+//				findUser.setPw(user.getPw());
+//				findUser.setMail(user.getMail());
+//
+//				userRepo.save(findUser);
+//				result = true;
+//			}
+//		} else if (findMail.size() == 0 && findNickname.size() == 0) {
+//			findUser.setNickname(user.getNickname());
+//			findUser.setName(user.getName());
+//			findUser.setPw(user.getPw());
+//			findUser.setMail(user.getMail());
+//
+//			userRepo.save(findUser);
+//			result = true;
+//		}
 
 		if (findMail.size() == 0 && findNickname.size() == 0) {
 
